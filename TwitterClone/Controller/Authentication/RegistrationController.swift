@@ -9,11 +9,13 @@ import UIKit
 
 final class RegistrationController: UIViewController {
     
-    // MARK: PROPERTIES
+    // MARK: - Properties
+    
+    private let imagePicker = UIImagePickerController()
     
     private let plusPhotoButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "plus_photo"), for: .normal)
+        button.setImage(UIImage(named: "plus_photo")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
         return button
     }()
@@ -76,7 +78,7 @@ final class RegistrationController: UIViewController {
         return button
     }()
     
-    // MARK: LIFECYCLE
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +86,7 @@ final class RegistrationController: UIViewController {
         addButtonTargets()
     }
     
-    // MARK: SELECTORS
+    // MARK: - Selectors
     
     @objc
     private func handleRegistration() {
@@ -98,13 +100,16 @@ final class RegistrationController: UIViewController {
     
     @objc
     private func handleAddPhoto() {
-        print("Adding photo tapped....")
+        present(imagePicker, animated: true)
     }
     
-    // MARK: HELPERS
+    // MARK: - Helpers
     
     private func configureUI() {
         view.backgroundColor = .twitterBlue
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         
         view.addSubview(plusPhotoButton)
         plusPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
@@ -135,4 +140,20 @@ final class RegistrationController: UIViewController {
         plusPhotoButton.addTarget(self, action: #selector(handleAddPhoto), for: .touchUpInside)
         registerButton.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
     }
+}
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else { return }
+        plusPhotoButton.layer.cornerRadius = 128 / 2
+        plusPhotoButton.layer.masksToBounds = true
+        plusPhotoButton.imageView?.contentMode = .scaleAspectFill
+        plusPhotoButton.imageView?.clipsToBounds = true
+        plusPhotoButton.layer.borderColor = UIColor.white.cgColor
+        plusPhotoButton.layer.borderWidth = 2
+        self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        dismiss(animated: true)
+    }
+    
 }
