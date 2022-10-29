@@ -5,6 +5,7 @@
 //  Created by Tomasz Ogrodowski on 28/10/2022.
 //
 
+import Firebase
 import UIKit
 
 final class RegistrationController: UIViewController {
@@ -12,6 +13,7 @@ final class RegistrationController: UIViewController {
     // MARK: - Properties
     
     private let imagePicker = UIImagePickerController()
+    private var profileImage: UIImage?
     
     private let plusPhotoButton: UIButton = {
         let button = UIButton()
@@ -90,7 +92,28 @@ final class RegistrationController: UIViewController {
     
     @objc
     private func handleRegistration() {
-        print("Signed up!")
+        guard let profileImage = profileImage else {
+            print("DEBUG: No profile image selected")
+            return
+        }
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullNameTextField.text else { return }
+        guard let username = usernameTextField.text else { return }
+        
+        let credentials = AuthCredentials(
+            email: email,
+            password: password,
+            fullname: fullname,
+            username: username,
+            profileImage: profileImage
+        )
+        
+        AuthService.shared.registerUser(credientials: credentials) { error, ref in
+            print("DEBUG: Sign up duccessful")
+            print("DEBUG: Handle update")
+        }
+        
     }
     
     @objc
@@ -146,6 +169,8 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else { return }
+        self.profileImage = profileImage
+        
         plusPhotoButton.layer.cornerRadius = 128 / 2
         plusPhotoButton.layer.masksToBounds = true
         plusPhotoButton.imageView?.contentMode = .scaleAspectFill
@@ -153,6 +178,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         plusPhotoButton.layer.borderColor = UIColor.white.cgColor
         plusPhotoButton.layer.borderWidth = 2
         self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
         dismiss(animated: true)
     }
     

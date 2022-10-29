@@ -20,6 +20,8 @@ class Utilities {
         imageView.setDimensions(width: imageViewSize, height: imageViewSize)
         
         view.addSubview(textField)
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.anchor(left: imageView.rightAnchor, bottom:  view.bottomAnchor, right: view.rightAnchor, paddingLeft: 8, paddingBottom: 8)
         
         let dividerView = UIView()
