@@ -68,7 +68,24 @@ final class LoginController: UIViewController {
     
     @objc
     private func handleLogin() {
-        print("Handling login......")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("DEBUG: Error logging in: \(error.localizedDescription)")
+                return
+            }
+            
+            // After logging we have to find the MainTabController and call method which is responsible for shaping UI.
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true)
+        }
     }
     
     @objc

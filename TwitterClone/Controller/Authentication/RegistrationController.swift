@@ -110,8 +110,15 @@ final class RegistrationController: UIViewController {
         )
         
         AuthService.shared.registerUser(credientials: credentials) { error, ref in
-            print("DEBUG: Sign up duccessful")
-            print("DEBUG: Handle update")
+            // After registering we have to find the MainTabController and call method which is responsible for shaping UI.
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true)
         }
         
     }
