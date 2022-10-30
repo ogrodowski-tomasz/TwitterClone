@@ -12,12 +12,21 @@ class MainTabController: UITabBarController {
     
     // MARK: - PROPERTIES
     
+    var user: User? {
+        didSet {
+            // Before doing anything with User we want to be sure that it exists. That's why this is called in didSet block. In TabBar we have couple of ViewControllers (each one is embed in UINavigationControllers). After getting wanted view controller we have access to non-private properties. In this case - user property.
+            guard let nav = viewControllers?[0] as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            feed.user = user
+        }
+    }
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.backgroundColor = .twitterBlue
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
-        button.addTarget(MainTabController.self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        
         return button
     }()
     
@@ -26,6 +35,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .twitterBlue
+        addButtonsTargets()
 //        logUserOut()
         authenticateUserAndConfigureUI()
     }
@@ -34,13 +44,19 @@ class MainTabController: UITabBarController {
     
     @objc
     func actionButtonTapped() {
-        print(123)
+        guard let user = user else { return }
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
+        present(nav, animated: true)
     }
     
     // MARK: - API
     
     func fetchUser() {
-        UserService.shared.fetchUser()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        UserService.shared.fetchUser(uid: uid) { user in
+            self.user = user
+        }
     }
     
     func authenticateUserAndConfigureUI() {
@@ -83,7 +99,8 @@ class MainTabController: UITabBarController {
     }
     
     func configureViewControllers() {
-        let feedNavVC = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: FeedController())
+        let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        let feedNavVC = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
         let exploreNavVC = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
 
@@ -108,6 +125,10 @@ class MainTabController: UITabBarController {
         navigationController.navigationBar.standardAppearance = appearance
         navigationController.navigationBar.scrollEdgeAppearance = navigationController.navigationBar.standardAppearance
         return navigationController
+    }
+    
+    func addButtonsTargets() {
+        actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
     }
     
 }
