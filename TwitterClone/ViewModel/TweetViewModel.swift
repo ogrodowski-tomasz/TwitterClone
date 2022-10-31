@@ -16,8 +16,26 @@ struct TweetViewModel {
         self.user = tweet.user
     }
     
+    var usernameText: String {
+        return "@\(user.username)"
+    }
+    
     var profileImageUrl: URL? {
         return user.profileImageUrl
+    }
+    
+    var headerTimestamp: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a ・ MM/dd/yyyy"
+        return formatter.string(from: tweet.timestamp)
+    }
+    
+    var retweetsAttrbiutedString: NSAttributedString? {
+        return Utilities().attributedText(withValue: tweet.retweetCount, text: "Retweets")
+    }
+    
+    var likesAttrbiutedString: NSAttributedString? {
+        return Utilities().attributedText(withValue: tweet.likes, text: "Likes")
     }
     
     var timestamp: String {

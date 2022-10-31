@@ -55,4 +55,24 @@ class Utilities {
         button.setAttributedTitle(arrtibutedTitle, for: .normal)
         return button
     }
+    
+    func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributedTitle = NSMutableAttributedString(
+            string: "\(value)",
+            attributes: [
+                .font : UIFont.boldSystemFont(ofSize: 14),
+                .foregroundColor : UIColor.label
+            ]
+        )
+        attributedTitle.append(
+            NSAttributedString(
+                string: " \(text)",
+                attributes: [
+                    .font : UIFont.systemFont(ofSize: 14),
+                    .foregroundColor : UIColor.lightGray
+                ]
+            )
+        )
+        return attributedTitle
+    }
 }
