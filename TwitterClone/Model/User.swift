@@ -5,6 +5,7 @@
 //  Created by Tomasz Ogrodowski on 29/10/2022.
 //
 
+import Firebase
 import Foundation
 
 struct User {
@@ -13,6 +14,8 @@ struct User {
     let username: String
     var profileImageUrl: URL?
     let uid: String
+    var isFollowed = false
+    var stats: UserRelationStats?
     
     init(uid: String, dictionary: [String : AnyObject]) {
         self.uid = uid
@@ -26,4 +29,11 @@ struct User {
             self.profileImageUrl = url
         }
     }
+    
+    var isCurrentUser: Bool { Auth.auth().currentUser?.uid == uid }
+}
+
+struct UserRelationStats {
+    var followers: Int
+    var following: Int
 }

@@ -14,6 +14,11 @@
 		1E55DDC4290E897E008CD44E /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDC3290E897E008CD44E /* TweetCell.swift */; };
 		1E55DDC7290EA02B008CD44E /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDC6290EA02B008CD44E /* TweetViewModel.swift */; };
 		1E55DDC9290EA7E2008CD44E /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDC8290EA7E2008CD44E /* ProfileController.swift */; };
+		1E55DDCB290EAE83008CD44E /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDCA290EAE83008CD44E /* ProfileHeader.swift */; };
+		1E55DDCD290ED738008CD44E /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDCC290ED738008CD44E /* ProfileFilterView.swift */; };
+		1E55DDCF290ED8AC008CD44E /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDCE290ED8AC008CD44E /* ProfileFilterCell.swift */; };
+		1E55DDD1290EDFB9008CD44E /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDD0290EDFB9008CD44E /* ProfileHeaderViewModel.swift */; };
+		1E55DDD3290FDC36008CD44E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDD2290FDC36008CD44E /* UserCell.swift */; };
 		1EC7571B290BCD630098170C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7571A290BCD630098170C /* AppDelegate.swift */; };
 		1EC7571D290BCD630098170C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7571C290BCD630098170C /* SceneDelegate.swift */; };
 		1EC75722290BCD630098170C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC75720290BCD630098170C /* Main.storyboard */; };
@@ -44,6 +49,11 @@
 		1E55DDC3290E897E008CD44E /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		1E55DDC6290EA02B008CD44E /* TweetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		1E55DDC8290EA7E2008CD44E /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		1E55DDCA290EAE83008CD44E /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		1E55DDCC290ED738008CD44E /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
+		1E55DDCE290ED8AC008CD44E /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
+		1E55DDD0290EDFB9008CD44E /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		1E55DDD2290FDC36008CD44E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		1EC75717290BCD630098170C /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC7571A290BCD630098170C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EC7571C290BCD630098170C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +144,10 @@
 			children = (
 				1E55DDBD290E6DFD008CD44E /* CaptionTextView.swift */,
 				1E55DDC3290E897E008CD44E /* TweetCell.swift */,
+				1E55DDCA290EAE83008CD44E /* ProfileHeader.swift */,
+				1E55DDCC290ED738008CD44E /* ProfileFilterView.swift */,
+				1E55DDCE290ED8AC008CD44E /* ProfileFilterCell.swift */,
+				1E55DDD2290FDC36008CD44E /* UserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				1E55DDC6290EA02B008CD44E /* TweetViewModel.swift */,
+				1E55DDD0290EDFB9008CD44E /* ProfileHeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -326,14 +341,18 @@
 				1EF66357290D67490075E6B2 /* UserService.swift in Sources */,
 				1EC7573B290BCFBA0098170C /* NotificationsController.swift in Sources */,
 				1E55DDBE290E6DFD008CD44E /* CaptionTextView.swift in Sources */,
+				1E55DDCF290ED8AC008CD44E /* ProfileFilterCell.swift in Sources */,
 				1EC7573D290BCFDD0098170C /* ConversationsController.swift in Sources */,
+				1E55DDD3290FDC36008CD44E /* UserCell.swift in Sources */,
 				1EC7574C290C28B10098170C /* Constans.swift in Sources */,
 				1EC75746290BF1630098170C /* Utilities.swift in Sources */,
 				1EC7571B290BCD630098170C /* AppDelegate.swift in Sources */,
 				1E55DDC9290EA7E2008CD44E /* ProfileController.swift in Sources */,
+				1E55DDCB290EAE83008CD44E /* ProfileHeader.swift in Sources */,
 				1E55DDC4290E897E008CD44E /* TweetCell.swift in Sources */,
 				1EC7573F290BDE330098170C /* Extensions.swift in Sources */,
 				1EC7574E290C38530098170C /* AuthService.swift in Sources */,
+				1E55DDD1290EDFB9008CD44E /* ProfileHeaderViewModel.swift in Sources */,
 				1E55DDBC290DD9C7008CD44E /* UploadTweetController.swift in Sources */,
 				1EF66359290D6D9B0075E6B2 /* User.swift in Sources */,
 				1EC75742290BEB3B0098170C /* LoginController.swift in Sources */,
@@ -342,6 +361,7 @@
 				1E55DDC7290EA02B008CD44E /* TweetViewModel.swift in Sources */,
 				1EC75735290BCE550098170C /* MainTabController.swift in Sources */,
 				1EC75744290BEB970098170C /* RegistrationController.swift in Sources */,
+				1E55DDCD290ED738008CD44E /* ProfileFilterView.swift in Sources */,
 				1EC75737290BCF4D0098170C /* FeedController.swift in Sources */,
 				1E55DDC2290E7F50008CD44E /* Tweet.swift in Sources */,
 				1E55DDC0290E7C3B008CD44E /* TweetService.swift in Sources */,
