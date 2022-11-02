@@ -135,6 +135,10 @@ extension FeedController: TweetCellDelegate {
             // Updating both database value and value on app side to prevent making an extra call. If something will be unsynced, API call will still be made when view is shown. But just one, not every time data is updated.
             let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
             cell.tweet?.likes = likes
+            
+            // only upload notification if tweet is being liked (omit un-liking. There is no notifications for that whatsoever)
+            guard !tweet.didLike else { return }
+            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
         }
     }
 }

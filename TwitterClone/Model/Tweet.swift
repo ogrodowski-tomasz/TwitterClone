@@ -10,7 +10,7 @@ import Foundation
 struct Tweet {
     let caption: String
     let tweetID: String
-    let uid: String
+//    let uid: String
     let retweetCount: Int
     
     var timestamp: Date!
@@ -23,7 +23,7 @@ struct Tweet {
         self.user = user
         
         self.caption = dictionary["caption"] as? String ?? ""
-        self.uid = dictionary["uid"] as? String ?? ""
+//        self.uid = dictionary["uid"] as? String ?? ""
         self.likes = dictionary["likes"] as? Int ?? 0
         self.retweetCount = dictionary["retweets"] as? Int ?? 0
         
