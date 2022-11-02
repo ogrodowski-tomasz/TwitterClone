@@ -37,7 +37,18 @@ final class FeedController: UICollectionViewController {
     
     func fetchTweets() {
         TweetService.shared.fetchTweets { [weak self] tweets in
-            self?.tweets = tweets
+            guard let self = self else { return }
+            self.tweets = tweets
+            self.checkIfUserLikeTweets(tweets)
+        }
+    }
+    
+    func checkIfUserLikeTweets(_ tweets: [Tweet]) {
+        for (index, tweet) in tweets.enumerated() {
+            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+                guard didLike else { return }
+                self.tweets[index].didLike = true
+            }
         }
     }
     
@@ -94,7 +105,9 @@ extension FeedController {
 
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        let viewModel = TweetViewModel(tweet: tweets[indexPath.row])
+        let height = viewModel.size(forWidth: view.frame.width).height
+        return CGSize(width: view.frame.width, height: height + 70)
     }
 }
 
@@ -104,5 +117,24 @@ extension FeedController: TweetCellDelegate {
         guard let user = cell.tweet?.user else { return }
         let profileVC = ProfileController(user: user)
         navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    func handleReplyTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        let controller = UploadTweetController(user: tweet.user, config: .reply(tweet))
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
+    
+    func handleLikeTapped(_ cell: TweetCell) {
+
+        guard let tweet = cell.tweet else { return }
+        TweetService.shared.likeTweet(tweet: tweet) { error, ref in
+            cell.tweet?.didLike.toggle()
+            // Updating both database value and value on app side to prevent making an extra call. If something will be unsynced, API call will still be made when view is shown. But just one, not every time data is updated.
+            let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
+            cell.tweet?.likes = likes
+        }
     }
 }

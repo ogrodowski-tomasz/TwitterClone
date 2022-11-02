@@ -8,13 +8,20 @@
 import UIKit
 
 struct TweetViewModel {
+    
+    // MARK: - Stored properties
+    
     let tweet: Tweet
     let user: User
+    
+    // MARK: - Init
     
     init(tweet: Tweet) {
         self.tweet = tweet
         self.user = tweet.user
     }
+    
+    // MARK: - Computed properties
     
     var usernameText: String {
         return "@\(user.username)"
@@ -76,5 +83,25 @@ struct TweetViewModel {
         return title
     }
     
+    var likeButtonTintColor: UIColor {
+        return tweet.didLike ? .red : .lightGray
+    }
+    
+    var likeButtonImage: UIImage? {
+        let imageName = tweet.didLike ? "like_filled" : "like"
+        return UIImage(named: imageName)
+    }
+    
+    // MARK: - Methods
+    
+    func size(forWidth width: CGFloat) -> CGSize {
+        let measurementLabel = UILabel()
+        measurementLabel.text = tweet.caption
+        measurementLabel.numberOfLines = 0
+        measurementLabel.lineBreakMode = .byWordWrapping
+        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
+        measurementLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
     
 }

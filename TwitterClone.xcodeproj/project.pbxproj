@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E53A5F22911DB9800609511 /* ActionSheetLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53A5F12911DB9800609511 /* ActionSheetLauncher.swift */; };
+		1E53A5F42912628E00609511 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53A5F32912628E00609511 /* ActionSheetCell.swift */; };
+		1E53A5F6291267A000609511 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53A5F5291267A000609511 /* ActionSheetViewModel.swift */; };
 		1E55DDBC290DD9C7008CD44E /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDBB290DD9C7008CD44E /* UploadTweetController.swift */; };
 		1E55DDBE290E6DFD008CD44E /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDBD290E6DFD008CD44E /* CaptionTextView.swift */; };
 		1E55DDC0290E7C3B008CD44E /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDBF290E7C3B008CD44E /* TweetService.swift */; };
@@ -21,6 +24,7 @@
 		1E55DDD3290FDC36008CD44E /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDD2290FDC36008CD44E /* UserCell.swift */; };
 		1E55DDD52910088A008CD44E /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDD42910088A008CD44E /* TweetController.swift */; };
 		1E55DDD729100AE4008CD44E /* TweetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55DDD629100AE4008CD44E /* TweetHeader.swift */; };
+		1E60644A29119C8E009EC1E8 /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E60644929119C8E009EC1E8 /* UploadTweetViewModel.swift */; };
 		1EC7571B290BCD630098170C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7571A290BCD630098170C /* AppDelegate.swift */; };
 		1EC7571D290BCD630098170C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7571C290BCD630098170C /* SceneDelegate.swift */; };
 		1EC75722290BCD630098170C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC75720290BCD630098170C /* Main.storyboard */; };
@@ -44,6 +48,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E53A5F12911DB9800609511 /* ActionSheetLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetLauncher.swift; sourceTree = "<group>"; };
+		1E53A5F32912628E00609511 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
+		1E53A5F5291267A000609511 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 		1E55DDBB290DD9C7008CD44E /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		1E55DDBD290E6DFD008CD44E /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		1E55DDBF290E7C3B008CD44E /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
@@ -58,6 +65,7 @@
 		1E55DDD2290FDC36008CD44E /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		1E55DDD42910088A008CD44E /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
 		1E55DDD629100AE4008CD44E /* TweetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeader.swift; sourceTree = "<group>"; };
+		1E60644929119C8E009EC1E8 /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
 		1EC75717290BCD630098170C /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC7571A290BCD630098170C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EC7571C290BCD630098170C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +161,7 @@
 				1E55DDCE290ED8AC008CD44E /* ProfileFilterCell.swift */,
 				1E55DDD2290FDC36008CD44E /* UserCell.swift */,
 				1E55DDD629100AE4008CD44E /* TweetHeader.swift */,
+				1E53A5F32912628E00609511 /* ActionSheetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -162,6 +171,8 @@
 			children = (
 				1E55DDC6290EA02B008CD44E /* TweetViewModel.swift */,
 				1E55DDD0290EDFB9008CD44E /* ProfileHeaderViewModel.swift */,
+				1E60644929119C8E009EC1E8 /* UploadTweetViewModel.swift */,
+				1E53A5F5291267A000609511 /* ActionSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -198,6 +209,7 @@
 				1EC7573E290BDE330098170C /* Extensions.swift */,
 				1EC75745290BF1630098170C /* Utilities.swift */,
 				1EC7574B290C28B10098170C /* Constans.swift */,
+				1E53A5F12911DB9800609511 /* ActionSheetLauncher.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -351,10 +363,12 @@
 				1EC7573D290BCFDD0098170C /* ConversationsController.swift in Sources */,
 				1E55DDD3290FDC36008CD44E /* UserCell.swift in Sources */,
 				1EC7574C290C28B10098170C /* Constans.swift in Sources */,
+				1E53A5F42912628E00609511 /* ActionSheetCell.swift in Sources */,
 				1EC75746290BF1630098170C /* Utilities.swift in Sources */,
 				1EC7571B290BCD630098170C /* AppDelegate.swift in Sources */,
 				1E55DDD52910088A008CD44E /* TweetController.swift in Sources */,
 				1E55DDC9290EA7E2008CD44E /* ProfileController.swift in Sources */,
+				1E60644A29119C8E009EC1E8 /* UploadTweetViewModel.swift in Sources */,
 				1E55DDCB290EAE83008CD44E /* ProfileHeader.swift in Sources */,
 				1E55DDC4290E897E008CD44E /* TweetCell.swift in Sources */,
 				1EC7573F290BDE330098170C /* Extensions.swift in Sources */,
@@ -367,10 +381,12 @@
 				1EC7571D290BCD630098170C /* SceneDelegate.swift in Sources */,
 				1E55DDD729100AE4008CD44E /* TweetHeader.swift in Sources */,
 				1E55DDC7290EA02B008CD44E /* TweetViewModel.swift in Sources */,
+				1E53A5F6291267A000609511 /* ActionSheetViewModel.swift in Sources */,
 				1EC75735290BCE550098170C /* MainTabController.swift in Sources */,
 				1EC75744290BEB970098170C /* RegistrationController.swift in Sources */,
 				1E55DDCD290ED738008CD44E /* ProfileFilterView.swift in Sources */,
 				1EC75737290BCF4D0098170C /* FeedController.swift in Sources */,
+				1E53A5F22911DB9800609511 /* ActionSheetLauncher.swift in Sources */,
 				1E55DDC2290E7F50008CD44E /* Tweet.swift in Sources */,
 				1E55DDC0290E7C3B008CD44E /* TweetService.swift in Sources */,
 			);
@@ -520,6 +536,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FU45F4SL37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -549,6 +566,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FU45F4SL37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
