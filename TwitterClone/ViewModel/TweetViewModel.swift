@@ -31,6 +31,13 @@ struct TweetViewModel {
         return user.profileImageUrl
     }
     
+    var shouldHideReplyLabel: Bool { !tweet.isReply }
+    
+    var replyText: String? {
+        guard let replyingToUsername = tweet.replyingTo else { return nil }
+        return "→ replying to @\(replyingToUsername)"
+    }
+    
     var headerTimestamp: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a ・ MM/dd/yyyy"
