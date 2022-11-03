@@ -36,20 +36,32 @@ final class FeedController: UICollectionViewController {
     // MARK: - API
     
     func fetchTweets() {
+        collectionView.refreshControl?.beginRefreshing()
         TweetService.shared.fetchTweets { [weak self] tweets in
             guard let self = self else { return }
-            self.tweets = tweets
-            self.checkIfUserLikeTweets(tweets)
+            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self.checkIfUserLikeTweets()
+                        
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
-    func checkIfUserLikeTweets(_ tweets: [Tweet]) {
-        for (index, tweet) in tweets.enumerated() {
+    func checkIfUserLikeTweets() {
+        self.tweets.forEach { tweet in
             TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
                 guard didLike else { return }
-                self.tweets[index].didLike = true
+                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                    self.tweets[index].didLike = true
+                }
             }
         }
+    }
+    
+    // MARK: - SELECTORS
+    
+    @objc
+    private func handleRefresh() {
+        fetchTweets()
     }
     
     // MARK: - HELPERS
@@ -63,6 +75,9 @@ final class FeedController: UICollectionViewController {
         imageView.setDimensions(width: 44, height: 44)
         navigationItem.titleView = imageView
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     func configureLeftBarButton() {
