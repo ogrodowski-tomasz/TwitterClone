@@ -5,10 +5,12 @@
 //  Created by Tomasz Ogrodowski on 31/10/2022.
 //
 
+import ActiveLabel
 import UIKit
 
 protocol TweetHeaderDelegate: AnyObject {
     func showActionSheet()
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetHeader: UICollectionReusableView {
@@ -23,10 +25,11 @@ class TweetHeader: UICollectionReusableView {
         didSet { configure() }
     }
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12)
+        label.mentionColor = .twitterBlue
         return label
     }()
     
@@ -54,11 +57,13 @@ class TweetHeader: UICollectionReusableView {
         return label
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = .systemFont(ofSize: 20)
         label.numberOfLines = 0
-         return label
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
+        return label
     }()
     
     private let dateLabel: UILabel = {
@@ -145,6 +150,7 @@ class TweetHeader: UICollectionReusableView {
         
         addTapTargets()
         configureUI()
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
@@ -244,5 +250,11 @@ class TweetHeader: UICollectionReusableView {
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
+    }
+    
+    func configureMentionHandler() {
+        captionLabel.handleMentionTap { mentionedUsername in
+            self.delegate?.handleFetchUser(withUsername: mentionedUsername)
+        }
     }
 }

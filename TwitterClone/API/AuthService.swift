@@ -46,7 +46,6 @@ struct AuthService {
                     return
                 }
                 guard let profileImageUrl = url?.absoluteString else { return }
-                
                 Auth.auth().createUser(withEmail: email, password: password) { result, error in
                     if let error = error {
                         print("DEBUG: Error occurred: \(error.localizedDescription)")
@@ -60,7 +59,7 @@ struct AuthService {
                         "fullname" : fullname,
                         "profileImageUrl": profileImageUrl
                     ]
-                    
+                    REF_USER_USERNAMES.updateChildValues([username : uid])
                     REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
                 }
             }

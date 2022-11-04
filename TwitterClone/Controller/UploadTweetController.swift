@@ -5,10 +5,9 @@
 //  Created by Tomasz Ogrodowski on 29/10/2022.
 //
 
+import ActiveLabel
 import SDWebImage
 import UIKit
-
-
 
 class UploadTweetController: UIViewController {
     
@@ -45,11 +44,11 @@ class UploadTweetController: UIViewController {
         return imageView
     }()
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
-        label.text = "replying to @k.stanowski"
+        label.mentionColor = .twitterBlue
         label.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         return label
     }()
@@ -72,6 +71,7 @@ class UploadTweetController: UIViewController {
         super.viewDidLoad()
         configureUI()
         addButtonTargets()
+        configureMentionHandler()
     }
     
     // MARK: - Selectors
@@ -105,13 +105,7 @@ class UploadTweetController: UIViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
-        
-        //        view.addSubview(profileImageView)
-        //        view.addSubview(captionTextView)
-        //
-        //        profileImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 16, paddingLeft: 16)
-        //        captionTextView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: profileImageView.rightAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: 16, paddingLeft: 12, paddingRight: 16, height: 1200)
-        
+
         let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         imageCaptionStack.axis = .horizontal
         imageCaptionStack.spacing = 12
@@ -143,5 +137,11 @@ class UploadTweetController: UIViewController {
         navigationController?.navigationBar.barTintColor = .systemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: actionButton)
+    }
+    
+    func configureMentionHandler() {
+        replyLabel.handleMentionTap { mention in
+            print("DEBUG: Mentioned user is: \(mention)")
+        }
     }
 }

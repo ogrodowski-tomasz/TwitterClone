@@ -5,12 +5,14 @@
 //  Created by Tomasz Ogrodowski on 30/10/2022.
 //
 
+import ActiveLabel
 import UIKit
 
 protocol TweetCellDelegate: AnyObject {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -27,10 +29,20 @@ class TweetCell: UICollectionViewCell {
     
     weak var delegate: TweetCellDelegate?
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12)
+        label.mentionColor = .twitterBlue
+        return label
+    }()
+    
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
+        label.font = .systemFont(ofSize: 14)
+        label.numberOfLines = 0
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -46,13 +58,6 @@ class TweetCell: UICollectionViewCell {
     }()
     
     private let infoLabel = UILabel()
-    
-    private let captionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.numberOfLines = 0
-        return label
-    }()
     
     private lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
@@ -92,9 +97,7 @@ class TweetCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = .systemBackground
-//        addSubview(profileImageView)
-//        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
-//
+
         let captionStack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
         captionStack.axis = .vertical
         captionStack.distribution = .fillProportionally
@@ -135,6 +138,7 @@ class TweetCell: UICollectionViewCell {
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 1)
         
         addTapActions()
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
@@ -197,5 +201,11 @@ class TweetCell: UICollectionViewCell {
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
+    }
+    
+    func configureMentionHandler() {
+        captionLabel.handleMentionTap { mentionedUsername in
+            self.delegate?.handleFetchUser(withUsername: mentionedUsername)
+        }
     }
 }
