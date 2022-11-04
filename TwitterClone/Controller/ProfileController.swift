@@ -46,6 +46,7 @@ class ProfileController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        configureNavigationBar()
         
         fetchTweets()
         fetchLikedTweets()
@@ -57,8 +58,6 @@ class ProfileController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -103,6 +102,12 @@ class ProfileController: UICollectionViewController {
     }
     
     // MARK: - Helpers
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func configureCollectionView() {
         view.backgroundColor = .systemBackground
         collectionView.contentInsetAdjustmentBehavior = .never
@@ -176,8 +181,11 @@ extension ProfileController: ProfileHeaderDelegate {
     
     func handleEditProfileFollow(_ header: ProfileHeader) {
         if user.isCurrentUser {
-            print("DEBUG: Show edit profile controller...")
-            return
+            let controller = EditProfileController(user: user)
+            controller.delegate = self
+            let navigationController = UINavigationController(rootViewController: controller)
+            navigationController.modalPresentationStyle = .fullScreen
+            present(navigationController, animated: true)
         }
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { error, ref in
@@ -196,5 +204,15 @@ extension ProfileController: ProfileHeaderDelegate {
     
     func didSelect(filter: ProfileFilterOptions) {
         self.selectedFilter = filter
+    }
+}
+
+// MARK: - EditProfileControllerDelegate
+
+extension ProfileController: EditProfileControllerDelegate {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true)
+        self.user = user
+        self.collectionView.reloadData()
     }
 }

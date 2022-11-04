@@ -1,5 +1,5 @@
 //
-//  CaptionTextView.swift
+//  InputTextView.swift
 //  TwitterClone
 //
 //  Created by Tomasz Ogrodowski on 30/10/2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CaptionTextView: UITextView {
+class InputTextView: UITextView {
     
     // MARK: - Properties
     
