@@ -64,6 +64,13 @@ final class FeedController: UICollectionViewController {
         fetchTweets()
     }
     
+    @objc
+    private func handleBarProfileImageTapped() {
+        guard let user = user else { return }
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     // MARK: - HELPERS
     func configureUI() {
         collectionView.backgroundColor = .systemBackground
@@ -88,6 +95,10 @@ final class FeedController: UICollectionViewController {
         profileImageView.setDimensions(width: size, height: size)
         profileImageView.layer.cornerRadius = size / 2
         profileImageView.layer.masksToBounds = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBarProfileImageTapped))
+        profileImageView.addGestureRecognizer(tap)
+        profileImageView.isUserInteractionEnabled = true
         
         profileImageView.sd_setImage(with: user.profileImageUrl)
         
@@ -153,7 +164,7 @@ extension FeedController: TweetCellDelegate {
             
             // only upload notification if tweet is being liked (omit un-liking. There is no notifications for that whatsoever)
             guard !tweet.didLike else { return }
-            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+            NotificationService.shared.uploadNotification(toUser: tweet.user, type: .like, tweetID: tweet.tweetID)
         }
     }
     

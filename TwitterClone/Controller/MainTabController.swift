@@ -8,25 +8,31 @@
 import Firebase
 import UIKit
 
+enum ActionButtonConfiguration {
+    case tweet
+    case message
+}
+
 class MainTabController: UITabBarController {
     
     // MARK: - PROPERTIES
     
     var user: User? {
         didSet {
-            // Before doing anything with User we want to be sure that it exists. That's why this is called in didSet block. In TabBar we have couple of ViewControllers (each one is embed in UINavigationControllers). After getting wanted view controller we have access to non-private properties. In this case - user property.
+            // Ensuring existance of user before showing Feed. each feed is embeded in navCon which are parts of tabCon (feed is the [0]th view)
             guard let nav = viewControllers?[0] as? UINavigationController else { return }
             guard let feed = nav.viewControllers.first as? FeedController else { return }
             feed.user = user
         }
     }
     
+    private var buttonConfig: ActionButtonConfiguration = .tweet
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.backgroundColor = .twitterBlue
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
-        
         return button
     }()
     
@@ -36,7 +42,6 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .twitterBlue
         addButtonsTargets()
-//        logUserOut()
         authenticateUserAndConfigureUI()
     }
     
@@ -44,8 +49,14 @@ class MainTabController: UITabBarController {
     
     @objc
     func actionButtonTapped() {
-        guard let user = user else { return }
-        let controller = UploadTweetController(user: user, config: .tweet)
+        let controller: UIViewController
+        switch buttonConfig {
+        case .message:
+            controller = SearchController(config: .messages)
+        case .tweet:
+            guard let user = user else { return }
+            controller = UploadTweetController(user: user, config: .tweet)
+        }
         let nav = UINavigationController(rootViewController: controller)
         present(nav, animated: true)
     }
@@ -73,18 +84,15 @@ class MainTabController: UITabBarController {
         }
     }
     
-    func logUserOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("DEBUG: Failed to sign out with error: \(error.localizedDescription)")
-        }
-    }
+    
     
     // MARK: - HELPERS
     
     func configureUI() {
         tabBar.backgroundColor = .systemBackground
+        
+        self.delegate = self
+        
         view.addSubview(actionButton)
         let size: CGFloat = 56
         actionButton.anchor(
@@ -102,7 +110,7 @@ class MainTabController: UITabBarController {
         let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let feedNavVC = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
-        let exploreNavVC = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: ExploreController())
+        let exploreNavVC = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: SearchController(config: .userSearch))
 
         let notificationsNavVC = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: NotificationsController())
 
@@ -130,5 +138,13 @@ class MainTabController: UITabBarController {
     func addButtonsTargets() {
         actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
     }
-    
+}
+
+extension MainTabController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = viewControllers?.firstIndex(of: viewController)
+        let imageName = index == 3 ? "mail" : "new_tweet"
+        actionButton.setImage(UIImage(named: imageName), for: .normal)
+        buttonConfig = index == 3 ? .message : .tweet
+    }
 }

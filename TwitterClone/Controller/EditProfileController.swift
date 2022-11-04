@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditProfileControllerDelegate: AnyObject {
     func controller(_ controller: EditProfileController, wantsToUpdate user: User)
+    func handleLogout()
 }
 
 class EditProfileController: UITableViewController {
@@ -18,6 +19,7 @@ class EditProfileController: UITableViewController {
     private var user: User
     private lazy var headerView = EditProfileHeader(user: user)
     private let imagePicker = UIImagePickerController()
+    private let footerView = EditProfileFooter()
     weak var delegate: EditProfileControllerDelegate?
     
     private var selectedImage: UIImage? {
@@ -118,8 +120,12 @@ class EditProfileController: UITableViewController {
     func configureTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
         headerView.delegate = self
+        
+        tableView.tableFooterView = footerView
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        footerView.delegate = self
+        
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: EditProfileCell.reuseIdentifier)
     }
     
@@ -192,5 +198,23 @@ extension EditProfileController: EditProfileCellDelegate {
         case .bio:
             user.bio = cell.bioTextView.text
         }
+    }
+}
+
+// MARK: - EditProfileFooterDelegate
+
+extension EditProfileController: EditProfileFooterDelegate {
+    func handleLogout() {
+        let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Logout", style: .destructive, handler: { _ in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogout()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alert, animated: true)
     }
 }
