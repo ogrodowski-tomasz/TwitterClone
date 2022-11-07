@@ -44,6 +44,13 @@ Edit profile screen lets modify information about username and bio that is shown
 <img src="https://github.com/ogrodowski-tomasz/TwitterClone/blob/main/twitter-screenshots/EditProfile1.png" width=200>
 </p>
 
+### Explore
+Explore Tab is storage of all registered users. Tapping on one of them will navigate to his profile. User is capable of filter presented list with search bar.
+<p>
+<img src="https://github.com/ogrodowski-tomasz/TwitterClone/blob/main/twitter-screenshots/ExploreScreen1.png" width=200>
+<img src="https://github.com/ogrodowski-tomasz/TwitterClone/blob/main/twitter-screenshots/ExploreScreen2.png" width=200>
+</p>
+
 ### Uploading new Tweet / Replying to Tweet
 Uploading new Tweet can differ in terms of type: New Tweet, Reply to Tweet. Look is slightly different. Replying to Tweet functionality is provided by ActiveLabel pod.
 
@@ -59,5 +66,6 @@ Uploading new Tweet can differ in terms of type: New Tweet, Reply to Tweet. Look
 2 types of notifications are provided: When user's post was liked, user was followed.
 <p>
 <img src="https://github.com/ogrodowski-tomasz/TwitterClone/blob/main/twitter-screenshots/NotificationsScreen1.png" width=200>
+<img src="https://github.com/ogrodowski-tomasz/TwitterClone/blob/main/twitter-screenshots/NotificationsScreen2.png" width=200>
 </p>
 
